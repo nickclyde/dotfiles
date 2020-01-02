@@ -50,7 +50,7 @@ dotfiles checkout .config/polybar/config
   - [rofi](https://github.com/davatorium/rofi) - window switcher, application launcher and dmenu replacement
     - [networkmanager_dmenu](https://aur.archlinux.org/packages/networkmanager-dmenu-git/) - control NetworkManager via dmenu/rofi
   - [dunst](https://github.com/dunst-project/dunst) - lightweight and customizable notification daemon
-  - [setwall]() - shell script for managing wallpapers that automatically updates colorscheme across system
+  - [setwall](https://github.com/ClydeDroid/dotfiles/blob/master/.local/bin/setwall) - shell script for managing wallpapers that automatically updates colorscheme across system
     - [feh](https://wiki.archlinux.org/index.php/Feh) - wallpaper setter
     - [pywal](https://github.com/dylanaraps/pywal) - Generate and change color-schemes on the fly
     - [wpgtk](https://github.com/deviantfero/wpgtk) - a colorscheme, wallpaper and template manager for GTK
@@ -60,9 +60,9 @@ dotfiles checkout .config/polybar/config
   - [Kvantum](https://github.com/tsujan/Kvantum) - linux SVG-based theme engine for Qt4/Qt5 and KDE
   - [dolphin](https://github.com/KDE/dolphin) - KDE file manager
   - [Firefox](https://www.archlinux.org/packages/extra/x86_64/firefox/) - The privacy-focused web browswer from Mozilla
-    - [userChrome.css]() - color customizations from setwall
+    - [userChrome.css](https://github.com/ClydeDroid/dotfiles/blob/master/.mozilla/firefox/b5e0xjzo.default-release/chrome/userChrome.css) - color customizations from setwall
   - [Atom](https://www.archlinux.org/packages/community/x86_64/atom/) - A hackable text editor for the 21st Century
-    - [wal-syntax]() - a syntax package that uses colors from setwall
+    - [wal-syntax](https://github.com/ClydeDroid/dotfiles/tree/master/.atom/packages/wal-syntax) - a syntax package that uses colors from setwall
 
 ## Screenshots
 
@@ -77,3 +77,10 @@ dotfiles checkout .config/polybar/config
 <br>
 <img src="https://github.com/ClydeDroid/dotfiles/raw/master/.meta/atom.png">
 </div>
+
+### Thanks for the inspiration!
+
+- [turing753/mydotfiles](https://github.com/turing753/mydotfiles)
+- [aesophor/dotfiles](https://github.com/aesophor/dotfiles)
+- [fcamilleri22/dots](https://github.com/fcamilleri22/dots)
+- Probably lots of others from [/r/unixporn](https://www.reddit.com/r/unixporn/) that I'm forgetting!
