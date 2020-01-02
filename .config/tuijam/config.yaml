@@ -1,0 +1,28 @@
+mpris_enabled: true
+palette:
+  header:
+  - white,underline
+  - default
+  progress:
+  - white
+  - dark red
+  progress_remaining:
+  - white
+  - dark gray
+  region_bg-normal:
+  - light gray
+  - default
+  region_bg-select:
+  - white
+  - default
+  search-normal:
+  - white
+  - default
+  search-select:
+  - white
+  - dark red
+persist_queue: true
+reverse_scrolling: false
+use_terminal_colors: false
+video: false
+vim: false

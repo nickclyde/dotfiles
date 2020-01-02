@@ -1,0 +1,267 @@
+#
+#  $$$$$$\  $$$$$$\         $$$$$$\   $$$$$$\  $$$$$$$\   $$$$$$\  
+#  \_$$  _|$$ ___$$\       $$  __$$\ $$  __$$\ $$  __$$\ $$  __$$\ 
+#    $$ |  \_/   $$ |      $$ /  \__|$$ /  $$ |$$ |  $$ |$$ /  \__|
+#    $$ |    $$$$$ /       $$ |$$$$\ $$$$$$$$ |$$$$$$$  |\$$$$$$\  
+#    $$ |    \___$$\       $$ |\_$$ |$$  __$$ |$$  ____/  \____$$\ 
+#    $$ |  $$\   $$ |      $$ |  $$ |$$ |  $$ |$$ |      $$\   $$ |
+#  $$$$$$\ \$$$$$$  |      \$$$$$$  |$$ |  $$ |$$ |      \$$$$$$  |
+#  \______| \______/        \______/ \__|  \__|\__|       \______/ 
+#                                                                
+
+#   __   _____ ___ _   _  _   _    
+#   \ \ / /_ _/ __| | | |/_\ | |   
+#    \ V / | |\__ \ |_| / _ \| |__ 
+#     \_/ |___|___/\___/_/ \_\____|
+#                                  
+                     
+font pango          : Hack Nerd Font 10
+for_window [class   = ".*"] title_format "%title  ⋯  %class"
+title_align center
+
+# Set inner/outer gaps
+gaps inner 40
+gaps outer 0 
+gaps top 0
+gaps bottom 0
+
+for_window [class   = "^.*"] border pixel 0
+for_window [title   = "^.*"] border pixel 0
+
+smart_borders on
+# smart_gaps inverse_outer
+
+# Set colors from Xresources
+# Change 'color7' and 'color2' to whatever colors you want i3 to use 
+# from the generated scheme.
+# NOTE: The '#f0f0f0' in the lines below is the color i3 will use if
+# it fails to get colors from Xresources.
+set_from_resource $fg i3wm.color7 #f0f0f0
+set_from_resource $bg i3wm.color0 #000000
+set_from_resource $ac i3wm.color8 #2f2f2f
+
+
+# class                 border  backgr. text indicator child_border
+client.focused          $ac     $ac     $fg  $ac       $ac
+client.focused_inactive $bg     $bg     $fg  $bg       $bg
+client.unfocused        $bg     $bg     $fg  $bg       $bg
+client.urgent           $bg     $bg     $fg  $bg       $bg
+client.placeholder      $bg     $bg     $fg  $bg       $bg
+
+client.background       $bg
+
+# Try to kill the wallpaper set by Plasma (it takes up the entire workspace
+# and hides everythiing)
+exec --no-startup-id wmctrl -c Plasma
+for_window [title="Desktop — Plasma"] kill; floating enable; border none
+exec --no-startup-id ~/.fehbg &
+exec --no-startup-id wal -R
+
+# Avoid tiling popups, dropdown windows from plasma
+for_window [class="plasmashell"] floating enable
+for_window [class="Plasma"] floating enable
+for_window [class="krunner"] floating enable
+for_window [class="Kmix"] floating enable
+for_window [class="Klipper"] floating enable
+for_window [class="Plasmoidviewer"] floating enable
+for_window [title="plasma-desktop"] floating enable; border none
+for_window [title="win7"] floating enable; border none
+no_focus [class=”plasmashell”]
+
+# Avoid tiling for non-Plasma stuff
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="bubble"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_role="Preferences"] floating enable
+for_window [window_role="About"] floating enable
+for_window [window_type="dialog"] floating enable
+for_window [window_type="menu"] floating enable
+
+#    _  _______   _____ 
+#   | |/ / __\ \ / / __|
+#   | ' <| _| \ V /\__ \
+#   |_|\_\___| |_| |___/
+#                       
+
+set $mod Mod4
+floating_modifier Mod4
+focus_follows_mouse no
+
+#
+# Mouse related stuff
+#
+# The right button toggles floating
+bindsym --whole-window $mod+button2 floating toggle
+
+#
+# Launch Shortcuts
+#
+# Terminal
+bindsym $mod+Return exec konsole
+
+# Rofi drun menu
+bindsym $mod+d exec "rofi -show drun"
+
+# Reset desktop UI components (Polybar, Compton etc)
+bindsym $mod+Shift+t exec --no-startup-id sh -c "~/.local/bin/desktop-reset.sh"
+
+#
+# Workspace Navigation
+#
+# Move to workspace to the left
+bindsym $mod+Control+Left workspace prev
+
+# Move to workspace to the right
+bindsym $mod+Control+Right workspace next
+
+# Move to an empty workspace
+# bindsym $mod+Control+Down exec --no-startup-id "~/.config/rofi/scripts/i3_empty_workspace.sh"
+
+#
+# i3 base stuff 
+#
+# Restart, and reload i3
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+c reload
+
+# Toggle focus mode (floating or tiled)
+bindsym $mod+space focus mode_toggle
+
+# Toggle between floating and tiling state
+bindsym $mod+Shift+space floating toggle
+
+# Kill the focused app
+bindsym $mod+Shift+q kill
+
+# Binding mode to resize windows
+bindsym $mod+r mode "resize"
+mode "resize" {
+
+        bindsym Left resize shrink width 5 px or 5 ppt
+        bindsym Down resize grow height 5 px or 5 ppt
+        bindsym Up resize shrink height 5 px or 5 ppt
+        bindsym Right resize grow width 5 px or 5 ppt
+ 
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+# To shift focus
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# To move windows around
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Split in horizontal orientation
+bindsym $mod+h split h
+
+# Split in vertical orientation
+bindsym $mod+v split v
+
+# Enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# Switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+# Gap size increase/decrease bind mode
+set $mode_gaps Gaps: [ UP ] increase, or [ DOWN ] decrease
+bindsym $mod+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+    bindsym Up gaps inner current plus 5
+    bindsym Down gaps inner current minus 5
+    
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+
+# Switch to urgent window
+bindsym $mod+x [urgent=latest] focus
+
+#    __  __ ___ _  _ ___ 
+#   |  \/  |_ _| \| | __|
+#   | |\/| || || .` | _| 
+#   |_|  |_|___|_|\_|___|
+#
+
+# App launching
+bindsym $mod+Shift+d exec --no-startup-id dolphin
+bindsym $mod+Shift+s exec --no-startup-id spectacle
+bindsym $mod+Shift+w exec --no-startup-id networkmanager_dmenu
+
+# Media controls with playerctl
+bindsym $mod+F5 exec --no-startup-id playerctl previous
+bindsym $mod+F6 exec --no-startup-id playerctl play-pause
+bindsym $mod+F7 exec --no-startup-id playerctl next
+
+# Open specific applications in floating (+ sticky) mode
+for_window [class = "rofi"] floating enable sticky enable
+for_window [class ="Yad" title ="yad-calendar"] floating enable
+for_window [class ="Yad" title ="yad-battery"] floating enable
+for_window [class ="dmenu" title = "dmenu"] floating enable; move down 200px
+
+# No border for..
+for_window [class = "Firefox"] border pixel 0
+
+# Move certain apps to specific workspaces
+# 1 Terminal
+# 2 Firefox
+# 3 Slack
+# 4 Files
+# 5 Music
+# 6 Coding
+for_window [class = "Atom"] move window to workspace $ws6
+for_window [class = "Firefox"] move window to workspace $ws2
+
+#    ___ _____ _   ___ _____ _   _ ___ 
+#   / __|_   _/_\ | _ \_   _| | | | _ \
+#   \__ \ | |/ _ \|   / | | | |_| |  _/
+#   |___/ |_/_/ \_\_|_\ |_|  \___/|_|  
+#                                      
+
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec_always --no-startup-id compton
+exec_always --no-startup-id dunst

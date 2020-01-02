@@ -1,0 +1,19 @@
+// Note: do NOT commit this file unless YOU, and not a script, made changes to it.
+// It's meant to be edited via automated script whenever the theme is changed.
+@background: {color0};
+@foreground: {color15};
+
+@very-dark-gray: @background;
+@bg-highlight-gray: lighten(@background, 5%);
+@dark-gray: lighten(@background, 15%);
+@gray: lighten(@background, 30%);
+@light-gray: lighten(@background, 45%);
+@very-light-gray: lighten(@background, 60%);
+
+@red: lighten({color3}, 10%);
+@green: lighten({color2}, 10%);
+@orange: lighten({color1}, 10%);
+@light-orange: lighten(@orange, 20%);
+@blue: lighten({color4}, 10%);
+@purple: lighten({color5}, 10%);
+@cyan: lighten({color6}, 10%);

@@ -1,0 +1,229 @@
+;==========================================================
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;			https://github.com/polybar/polybar
+;==========================================================
+
+[colors]
+background = ${xrdb:color0:#222}
+foreground = ${xrdb:color7:#222}
+primary = ${xrdb:color1:#222}
+secondary = ${xrdb:color2:#222}
+tertiary = ${xrdb:color3:#222}
+alert = ${xrdb:color4:#222}
+five = ${xrdb:color5:#222}
+six = ${xrdb:color6:#222}
+
+[bar/mybar]
+
+;------------;
+; DIMENSIONS ;
+;------------;
+
+width = 100%
+height = 20
+offset-y = 0
+offset-x = 0
+
+border-top-size = 9
+border-bottom-size = 0
+border-right-size = 10
+border-left-size = 10
+
+;----------;
+; LOCATION ;
+;----------;
+
+bottom = false
+monitor = eDP-1
+override-redirect = false
+
+;-------;
+; FONTS ;
+;-------;
+
+font-0 = Hack Nerd Font:style=Regular:size=10;3
+font-1 = Hack Nerd Font:style=Bold:size=13;3
+font-2 = Hack Nerd Font:style=Regular:size=12;3
+
+;--------;
+; COLORS ;
+;--------;
+
+background = #aafff
+foreground = ${colors.foreground}
+border-color = 0
+
+;---------------;
+; MISCELLANEOUS ;
+;---------------;
+
+fixed-center = true
+padding-left = 2
+padding-right = 2
+module-margin = 1.5
+
+modules-left = battery volume backlight mpris
+modules-center = i3
+modules-right = cpu wlan date time
+
+tray-position = none
+tray-detached = true
+
+;---------;
+; MODULES ;
+;---------;
+
+[module/i3]
+type = internal/i3
+
+pin-workspaces = true
+strip-wsnumbers = true
+enable-scroll = false
+
+ws-icon-0 = 1; 
+ws-icon-1 = 2; 
+ws-icon-2 = 3; 
+ws-icon-3 = 4; 
+ws-icon-4 = 5;
+ws-icon-5 = 6;ﱦ
+ws-icon-6 = 7;
+ws-icon-default =  
+
+label-unfocused = %icon%
+label-unfocused-foreground = ${colors.six}
+label-unfocused-padding = 1
+label-unfocused-font = 3
+
+label-focused = %icon%
+label-focused-foreground = ${colors.foreground}
+label-focused-padding = 1
+label-focused-font = 2
+
+label-urgent = %icon%
+label-urgent-foreground = ${colors.alert}
+label-urgent-padding = 1
+label-urgent-font = 2
+
+[module/time]
+type = internal/date
+
+interval = 1.0
+
+date =  %I:%M:%S %p
+
+[module/date]
+type = custom/script
+exec = ~/.config/polybar/popup-calendar.sh
+interval = 600
+click-left = ~/.config/polybar/popup-calendar.sh --popup &
+
+[module/battery]
+type = internal/battery
+
+battery = BAT0
+adapter = AC0
+
+poll-interval = 1
+
+full-at = 95
+
+label-discharging = "%{A1:~/.config/polybar/popup-battery.sh &:}%percentage%%%{A}"
+label-charging = "%{A1:~/.config/polybar/popup-battery.sh &:}%percentage%%%{A}"
+label-full =  "%{A1:~/.config/polybar/popup-battery.sh &:}%percentage%%%{A}"
+
+format-discharging = <ramp-capacity> <label-discharging>
+format-full = <ramp-capacity> <label-full>
+format-charging =  <label-charging>
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+click-left = 
+
+[module/volume]
+type = internal/alsa
+
+format-volume = <ramp-volume> <label-volume>
+format-muted =  0%
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+
+
+[module/mpd]
+type = internal/mpd
+
+label-offline = mpd is offline
+format-online = <icon-prev> <toggle> <icon-next> <label-song>
+format-offline = <label-offline>
+host = 127.0.0.1
+port = 6600
+icon-prev = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
+
+label-song-maxlen = 25
+label-song-ellipsis = true
+
+bar-progress-width = 10
+bar-progress-indicator = |
+bar-progress-fill = ─
+bar-progress-empty = ─
+
+[module/mpris]
+type = custom/script
+exec = ~/.config/polybar/mpris.sh
+interval = 1
+
+[module/backlight]
+type = internal/backlight
+
+; Use the following command to list available cards:
+; $ ls -1 /sys/class/backlight/
+card = intel_backlight
+
+format = <ramp> <label>
+
+label = %percentage%%
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+
+[module/wlan]
+type = internal/network
+
+interface = wlp2s0
+
+interval = 5
+
+label-connected = "%{A1:networkmanager_dmenu &:} %essid%%{A}"
+label-disconnected = "%{A1:networkmanager_dmenu &:}睊 Not Connected%{A}"
+
+[module/cpu]
+type = internal/cpu
+label =  %percentage%%
+
+[module/memory]
+type = internal/memory
+label =  %gb_used%
+
+[module/network]
+type = internal/network
+interface = wlp2s0
+label-connected =  %downspeed% |  %upspeed% 
+
+[module/start]
+type = custom/text
+content = "%{A1:rofi -show drun -theme ~/.cache/wal/colors-rofi-dark.rasi:}%{A}"

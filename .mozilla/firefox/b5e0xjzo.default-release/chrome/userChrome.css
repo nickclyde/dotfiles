@@ -1,0 +1,41 @@
+/*                      ____ _                              
+   _   _ ___  ___ _ __ / ___| |__  _ __ ___  _ __ ___   ___ 
+  | | | / __|/ _ \ '__| |   | '_ \| '__/ _ \| '_ ` _ \ / _ \
+  | |_| \__ \  __/ |  | |___| | | | | | (_) | | | | | |  __/
+   \__,_|___/\___|_|   \____|_| |_|_|  \___/|_| |_| |_|\___|
+*/
+
+@import url('colors.css');
+
+/* Choose highlight color */
+:root {
+  --highlight-color: var(--color5);
+}
+
+#navigator-toolbox {
+  border-bottom: none !important;
+}
+
+#nav-bar {
+  color: var(--color7) !important;
+}
+
+#urlbar, .urlbarView, .search-one-offs, #statuspanel-label {
+  border: none !important;
+}
+
+#tabbrowser-tabs {
+  --tab-line-color: var(--highlight-color) !important;
+}
+
+findbar {
+  border-top: none !important;
+}
+
+toolbar {
+  --toolbarbutton-icon-fill-attention: var(--highlight-color) !important;
+}
+
+::-moz-selection, .urlbarView-row:hover, .urlbarView-row[selected] {
+  background-color: var(--highlight-color) !important;
+}
