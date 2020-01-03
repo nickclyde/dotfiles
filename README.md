@@ -26,7 +26,7 @@ dotfiles checkout .config/polybar/config
     - [powerlevel10k](https://github.com/romkatv/powerlevel10k/blob/master/README.md#oh-my-zsh) - Powerlevel10k is a theme for ZSH. It's fast, flexible and easy to install and configure.
     - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) - fish shell-like syntax highlighting for zsh
   - [Konsole](https://konsole.kde.org/) - terminal emulator bundled with KDE
-    - [Hack Nerd Font](https://github.com/be5invis/Iosevka) 10px - terminal font
+    - [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts) 10px - terminal font
   - [Vim](https://github.com/vim/vim) - For quick config and shell script editing
     - [Amix vimrc](https://github.com/amix/vimrc) - easy drop in vim configuration
     - [wal.vim](https://github.com/dylanaraps/wal.vim) - A vim colorscheme for use with pywal
@@ -45,7 +45,7 @@ dotfiles checkout .config/polybar/config
   - [KDE](https://wiki.archlinux.org/index.php/KDE) - desktop environment
   - [i3-gaps](https://github.com/Airblader/i3) - i3 window manager with gaps between windows
   - [Polybar](https://github.com/jaagr/polybar) - fast and easy-to-use status bar
-    - [Hack Nerd Font](https://github.com/be5invis/Iosevka) - iconic font including fontawesome
+    - [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts) - iconic font including fontawesome
   - [compton (sdhand)](https://github.com/sdhand/compton) - X11 compositor fork with rounded windows
   - [rofi](https://github.com/davatorium/rofi) - window switcher, application launcher and dmenu replacement
     - [networkmanager_dmenu](https://aur.archlinux.org/packages/networkmanager-dmenu-git/) - control NetworkManager via dmenu/rofi
