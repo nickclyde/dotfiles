@@ -14,7 +14,7 @@ To install a specific dotfile (take polybar for example):
 git clone --bare git@github.com:ClydeDroid/dotfiles.git $HOME/.dotfiles
 alias dotfiles='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 dotfiles config --local status.showUntrackedFiles no
-dotfiles checkout .config/polybar/config
+dotfiles checkout HEAD .config/polybar/config
 ```
 
 ## Details
