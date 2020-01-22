@@ -50,25 +50,11 @@ client.placeholder      $bg     $bg     $fg  $bg       $bg
 
 client.background       $bg
 
-# Try to kill the wallpaper set by Plasma (it takes up the entire workspace
-# and hides everythiing)
-exec --no-startup-id wmctrl -c Plasma
-for_window [title="Desktop — Plasma"] kill; floating enable; border none
+# Wallpaper
 exec --no-startup-id ~/.fehbg &
 exec --no-startup-id wal -R
 
-# Avoid tiling popups, dropdown windows from plasma
-for_window [class="plasmashell"] floating enable
-for_window [class="Plasma"] floating enable
-for_window [class="krunner"] floating enable
-for_window [class="Kmix"] floating enable
-for_window [class="Klipper"] floating enable
-for_window [class="Plasmoidviewer"] floating enable
-for_window [title="plasma-desktop"] floating enable; border none
-for_window [title="win7"] floating enable; border none
-no_focus [class=”plasmashell”]
-
-# Avoid tiling for non-Plasma stuff
+# Avoid tiling for dialogs, etc
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="bubble"] floating enable
 for_window [window_role="task_dialog"] floating enable
@@ -221,6 +207,22 @@ mode "$mode_gaps" {
 # Switch to urgent window
 bindsym $mod+x [urgent=latest] focus
 
+# Power mode
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (p) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id mantablockscreen, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id systemctl hibernate, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym p exec --no-startup-id systemctl poweroff, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+p exec --no-startup-id power-menu.sh
+
 #    __  __ ___ _  _ ___ 
 #   |  \/  |_ _| \| | __|
 #   | |\/| || || .` | _| 
@@ -230,7 +232,19 @@ bindsym $mod+x [urgent=latest] focus
 # App launching
 bindsym $mod+Shift+d exec --no-startup-id dolphin
 bindsym $mod+Shift+s exec --no-startup-id spectacle
-bindsym $mod+Shift+w exec --no-startup-id networkmanager_dmenu
+bindsym $mod+w exec --no-startup-id networkmanager_dmenu
+bindsym $mod+c exec --no-startup-id rofi -show calc -modi calc -no-show-match -no-sort
+bindsym $mod+Shift+e exec --no-startup-id rofimoji -c
+bindsym $mod+b exec --no-startup-id rofi-bluetooth
+
+# Audio and brightness control
+bindsym $mod+F1 exec --no-startup-id changeVolume toggle
+bindsym $mod+F2 exec --no-startup-id changeVolume 5%- unmute
+bindsym $mod+F3 exec --no-startup-id changeVolume 5%+ unmute
+bindsym $mod+F8 exec --no-startup-id changeBrightness 5%-
+bindsym $mod+F9 exec --no-startup-id changeBrightness +5%
+bindsym $mod+Shift+F8 exec --no-startup-id changeBrightness 0%
+bindsym $mod+Shift+F9 exec --no-startup-id changeBrightness 100%
 
 # Media controls with playerctl
 bindsym $mod+F5 exec --no-startup-id playerctl previous
@@ -252,9 +266,11 @@ for_window [class = "Firefox"] border pixel 0
 # 3 Slack
 # 4 Files
 # 5 Music
-# 6 Coding
-for_window [class = "Atom"] move window to workspace $ws6
+# 6 Email
+# 7 Atom
+# 8 Eclipse
 for_window [class = "Firefox"] move window to workspace $ws2
+for_window [class = "Atom"] move window to workspace $ws7
 
 #    ___ _____ _   ___ _____ _   _ ___ 
 #   / __|_   _/_\ | _ \_   _| | | | _ \
@@ -262,6 +278,10 @@ for_window [class = "Firefox"] move window to workspace $ws2
 #   |___/ |_/_/ \_\_|_\ |_|  \___/|_|  
 #                                      
 
+exec --no-startup-id protonmail-bridge --no-window
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec_always --no-startup-id compton
+exec_always --no-startup-id compton --dbus
 exec_always --no-startup-id dunst
+exec_always --no-startup-id libinput-gestures-setup start
+exec_always --no-startup-id xfce4-power-manager
+exec_always --no-startup-id xss-lock -- mantablockscreen

@@ -41,8 +41,8 @@ WALCACHE=$HOME/.cache/wal
 
 # Remove the old thumbnail and colorschemes so they are properly updated
 rm -f $HOME/.config/wpg/schemes/*.json
-rm -f $WALCACHE/schemes/*.json
-wal -c
+rm -rf $WALCACHE
+killall dunst
 
 # Generate and set a theme based on the wallpaper with wpgtk.
 # Remember to have your GTK theme set to FlatColor or this won't work correctly!
@@ -52,7 +52,7 @@ wpg -ns $wall $backend
 
 # Generate the theme again with pywal, as wpg misses some things and doesn't do as good of a job in general.
 # You could use this without wpg, but it will not set the GTK theme.
-wal -i $wall $backend
+wal -i $wall -n $backend
 rm -f $HOME/Wallpapers/*_sample.png
 
 # Update konsole colorscheme
@@ -66,25 +66,12 @@ cp $WALCACHE/colors-atom-syntax $HOME/.atom/packages/wal-syntax/styles/colors.le
 
 # Update dunst colors
 cp $WALCACHE/colors-dunst $HOME/.config/dunst/dunstrc
-killall dunst && i3 restart > /dev/null
+
+# Set the wallpaper for mantablockscreen
+mantablockscreen -i $wall
 
 # Set the wallpaper with feh
 feh --no-xinerama --bg-fill $wall
 
-# Set the wallpaper for sddm
-SDDM_THEME_PATH=/usr/share/sddm/themes/McMojave
-cp $wall $SDDM_THEME_PATH/bg.$extension
-cp $SDDM_THEME_PATH/theme.conf.user $SDDM_THEME_PATH/theme.conf.user.bak
-cat $SDDM_THEME_PATH/theme.conf.user | sed -E "s/background=.*/background=bg.$extension/" > /tmp/theme.conf.user
-cp /tmp/theme.conf.user $SDDM_THEME_PATH/theme.conf.user
-
-# Set the wallpaper for kscreenlocker
-cp $HOME/.config/kscreenlockerrc $HOME/.config/kscreenlockerrc.bak
-cat $HOME/.config/kscreenlockerrc | sed -E "s@Image=.*@Image=file://$wall@" > /tmp/kscreenlockerrc
-cp /tmp/kscreenlockerrc $HOME/.config/kscreenlockerrc
-
 # Notify
 nid=$(dunstify -i $wall -p "Wallpaper set to $filename")
-
-# Close useless notifications
-dunstify -C $((nid-1))

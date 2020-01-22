@@ -39,3 +39,7 @@ toolbar {
 ::-moz-selection, .urlbarView-row:hover, .urlbarView-row[selected] {
   background-color: var(--highlight-color) !important;
 }
+
+.scrollbutton-up, .scrollbutton-down, .alltabs-button {
+    display: none !important;
+}

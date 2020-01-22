@@ -68,7 +68,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(archlinux bundler docker git node npm pip postgres pyenv python rails rbenv ruby sudo terraform tmux tmuxinator zsh-syntax-highlighting)
+plugins=(archlinux bundler docker git node npm pip postgres pyenv python rails rbenv ruby sudo terraform tmux tmuxinator zsh-syntax-highlighting zsh-z)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -154,6 +154,12 @@ fromhex(){
                        (b<75?0:(b-35)/40)     + 16 ))"
 }
 
+# Set kvantum as default qt5 style
+export QT_STYLE_OVERRIDE=kvantum
+
+# pywal TTY colors
+source ~/.cache/wal/colors-tty.sh
+
 # aliases
 alias xclip="xclip -selection c"
 alias getclip="xclip -selection c -o"
@@ -165,6 +171,11 @@ alias userchromeconf="vim .mozilla/firefox/b5e0xjzo.default-release/chrome/userC
 alias wgup="sudo wg-quick up razer"
 alias wgdown="sudo wg-quick down razer"
 alias dotfiles='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias fan="sudo $HOME/Code/razer-laptop-control/rgb_test_service/rgb_test --fan"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+if [[ "$(tty)" == /dev/tty* ]]; then
+    [[ ! -f ~/.p10k-lean.zsh ]] || source ~/.p10k-lean.zsh
+else
+    [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+fi
